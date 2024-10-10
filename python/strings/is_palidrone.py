@@ -17,8 +17,6 @@ def is_palidrone(s: str) -> bool:
     cleaned_s = re.sub(pattern, '', lower)
     p1 = 0
     p2 = len(cleaned_s) - 1
-    print(cleaned_s)
-    print(p1, p2)
     while p1 < p2:
         if cleaned_s[p1] != cleaned_s[p2]:
             return False
