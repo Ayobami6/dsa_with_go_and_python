@@ -133,13 +133,92 @@ class SizedQueue:
             raise Exception("Oops!!, Queue is empty")
         return self.data[self.start]
 
+    def delete(self):
+        self.data = self.max_size * [None]
+        self.top = -1
+        self.start = -1
 
-new_queue = Queue()
 
-new_queue.enqueue(2)
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.next = None
+
+
+class LinkedQueue:
+    """Queue implementation with linkedlist
+    """
+
+    def __init__(self):
+        self.head = None
+        self.size = 0
+
+    # check if is empty
+    def is_empty(self) -> bool:
+        if self.size == 0:
+            return True
+        return False
+
+    def __str__(self) -> str:
+        data = []
+        head = self.head
+        while head:
+            data.append(str(head.val))
+            head = head.next
+        return " ".join(data)
+
+    def enqueue(self, val) -> None:
+        # create a new node
+        new_node = Node(val)
+        count = 1
+        # check if there is a head already
+        if self.head:
+            head = self.head
+            while head:
+                if count == self.size:
+                    break
+                head = head.next
+                count += 1
+            head.next = new_node
+            print("set head")
+        else:
+            self.head = new_node
+        self.size += 1
+
+    def dequeue(self) -> Any:
+        # check if is empty
+        if self.is_empty():
+            raise Exception("Oops!!, Queue is empty")
+        head_val = self.head.val
+        tmp = self.head.next
+        self.head = tmp
+        self.size -= 1
+        return head_val
+
+    def peek(self) -> Any:
+        """Get the top queue item
+
+        Returns:
+            Any: top queue item
+        """
+        return self.head.val
+
+
+# new_queue = Queue()
+
+# new_queue.enqueue(2)
+# new_queue.enqueue(3)
+# new_queue.enqueue(4)
+# print(new_queue.peek())
+# data = new_queue.dequeue()
+# print(f"This is the dequeued data {data}")
+# print(new_queue)
+
+
+new_queue = LinkedQueue()
+
 new_queue.enqueue(3)
 new_queue.enqueue(4)
-print(new_queue.peek())
-data = new_queue.dequeue()
-print(f"This is the dequeued data {data}")
+
+print(new_queue.dequeue())
 print(new_queue)
